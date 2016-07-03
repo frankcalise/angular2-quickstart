@@ -16,7 +16,9 @@ gulp.task('ts', function() {
 	var tsResult = tsProject.src(paths.appJavascript) 	// load all files from our pathspecification
 		.pipe(ts(tsProject)); 							// transpile the files into .js
     
-	return tsResult.js.pipe(gulp.dest('')); 			// save the .js in the same place as the original .ts-file
+	return tsResult.js.pipe(gulp.dest(function(file) {
+		return file.base;
+	})); 			// save the .js in the same place as the original .ts-file
 });
 
 gulp.task('sass', function() {
