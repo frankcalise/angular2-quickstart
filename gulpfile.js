@@ -3,8 +3,8 @@ var gulp      	= require('gulp'),
     minifyCss   = require('gulp-minify-css');    
 
 var PATHS = {
-    src: ['**/*.ts', '!node_modules/**/*.*'],
-    appScss: ['**/*.scss', '!node_modules/**/*.*']
+    src: ['src/**/*.ts', '!node_modules/**/*.*'],
+    scss: ['src/all.scss', '!node_modules/**/*.*']
 }
 
 gulp.task('ts', function () {
@@ -19,12 +19,10 @@ gulp.task('ts', function () {
 });
 
 gulp.task('sass', function () {
-  gulp.src(PATHS.appScss)
+  gulp.src(PATHS.scss)
     .pipe(sass().on('error', sass.logError)) 			// this will prevent our future watch-task from crashing on sass-errors
     .pipe(minifyCss({compatibility: 'ie8'})) 			// see the gulp-sass doc for more information on compatibilitymodes
-        .pipe(gulp.dest(function(file) {
-            return 'dist/' + file.base; 							// because of Angular 2's encapsulation, it's natural to save the css where the scss-file was
-    }));
+    .pipe(gulp.dest('dist/assets/css'))
 });
 
 gulp.task('watch', ['sass', 'ts'], function() { 		// brackets makes sure we run ts and sass once before the watch starts
