@@ -9,13 +9,19 @@ var PATHS = {
 
 gulp.task('ts', function () {
 	var typescript = require('gulp-typescript');
-	var tscConfig = require('./tsconfig.json');
-	
+	var embedTemplates = require('gulp-angular-embed-templates');
+	var tsProject = typescript.createProject('tsconfig.json');
+
     var tsResult = gulp
         .src(PATHS.src)
-        .pipe(typescript(tscConfig.compilerOptions));
+        .pipe(embedTemplates({
+        	sourceType: 'ts',
+        	basePath: './src/'
+        }))
+        .pipe(typescript(tsProject));
 
-    return tsResult.js.pipe(gulp.dest('dist'));
+    return tsResult.js
+    	.pipe(gulp.dest('dist'));
 });
 
 gulp.task('sass', function () {

@@ -4,7 +4,7 @@ import { MaterialButton } from './material.button.component';
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/app.tpl.html',
-	styleUrls: ['./app/app.css'],
+	styleUrls: ['./dist/assets/css/all.css'],
 	directives: [MaterialButton]
 })
 
